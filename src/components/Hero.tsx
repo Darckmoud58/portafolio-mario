@@ -26,21 +26,23 @@ export function Hero() {
   return (
     <section className="hero" id="top" ref={stage}>
       <div className="hero-scene" aria-hidden>
-        <Suspense fallback={null}>
+        <Suspense fallback={<div className="hero-fallback" />}>
           <OrbitalScene mouse={mouse} />
         </Suspense>
       </div>
       <div className="hero-veil" aria-hidden />
 
       <div className="hero-copy">
-        <p className="eyebrow">{site.role}</p>
+        <p className="eyebrow fade-in">{site.role}</p>
         <h1 className="hero-brand">
-          <span className="hero-line-1">{site.name.split(' ')[0]}</span>
+          <span className="hero-line-1">I hate</span>
           <span className="hero-line-2">
-            <em>{site.name.split(' ').slice(1).join(' ')}</em>
+            boring <em>websites.</em>
           </span>
         </h1>
-        <p className="hero-line">{site.tagline}</p>
+        <p className="hero-line">
+          Soy <strong>{site.name}</strong>. {site.tagline}
+        </p>
         <div className="hero-actions">
           <a className="btn btn-primary" href="#work" data-cursor="grow">
             Explorar trabajo
@@ -51,12 +53,11 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="hero-aside" aria-hidden>
-        <span>01</span>
-        <span>experiencia</span>
-      </div>
+      <p className="hero-hint" aria-hidden>
+        mueve el cursor · la escena responde
+      </p>
 
-      <div className="hero-scroll">
+      <div className="hero-scroll" aria-hidden>
         <span>scroll</span>
         <i />
       </div>

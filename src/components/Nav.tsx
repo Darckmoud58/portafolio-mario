@@ -1,10 +1,10 @@
 import { site } from '../data/site'
 
 const links = [
-  { href: '#work', label: 'Work' },
+  { href: '#work', label: 'Trabajo' },
   { href: '#stack', label: 'Stack' },
-  { href: '#about', label: 'About' },
-  { href: '#contact', label: 'Contact' },
+  { href: '#about', label: 'Sobre mí' },
+  { href: '#contact', label: 'Contacto' },
 ]
 
 export function Nav() {

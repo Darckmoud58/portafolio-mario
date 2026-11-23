@@ -5,16 +5,18 @@ export function About() {
     <section className="about" id="about">
       <div className="about-grid">
         <div>
-          <p className="eyebrow">About</p>
+          <p className="eyebrow">Sobre mí</p>
           <h2>
-            Odio los sitios <em>aburridos</em>
+            No una lista de links.
+            <br />
+            Una <em>experiencia</em>.
           </h2>
         </div>
         <div className="about-copy">
           <p>{site.blurb}</p>
           <p>
-            Este portafolio no es una lista de links: es una pequeña experiencia. Tipografía con
-            intención, movimiento con propósito, y proyectos que se sienten vivos en el navegador.
+            PWAs, e-commerce, sitios Angular, piezas visuales y un ente local (Ultron) con HUD 3D.
+            Tipografía con intención, movimiento con propósito, cero relleno.
           </p>
           <p className="about-loc">
             {site.location} · @{site.handle}

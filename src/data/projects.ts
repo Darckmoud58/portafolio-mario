@@ -16,9 +16,9 @@ export type Project = {
 }
 
 /**
- * Fuente única de verdad del portafolio.
- * No incluir: Meetpoint, Punto de Venta, FOLAPSA, KARDEX / BIP Oracle.
- * Otro Cursor: ver PROMPT.md.
+ * Fuente única de verdad.
+ * No incluir: FOLAPSA, Meetpoint, Punto de Venta, KARDEX / BIP enterprise.
+ * Ver PROMPT.md.
  */
 export const projects: Project[] = [
   {
@@ -39,7 +39,7 @@ export const projects: Project[] = [
   {
     id: 'gkm-tienda',
     title: 'GKM Tienda',
-    subtitle: 'Commerce B2C',
+    subtitle: 'E-commerce B2C',
     description:
       'Tienda online: catálogo, checkout y pagos con Mercado Pago / PayPal. Next.js en producción.',
     year: '2025',
@@ -65,9 +65,9 @@ export const projects: Project[] = [
   {
     id: 'pwacompleto',
     title: 'Todo PWA',
-    subtitle: 'API + frontend',
+    subtitle: 'Full-stack instalable',
     description:
-      'App PWA full-stack con API propia. Tareas, sync y experiencia instalable en móvil.',
+      'App PWA con API propia. Tareas, sync y experiencia lista para el móvil.',
     year: '2025',
     stack: ['TypeScript', 'PWA', 'API'],
     visibility: 'public',
@@ -80,9 +80,9 @@ export const projects: Project[] = [
   {
     id: 'mi-nevera',
     title: 'Mi Nevera',
-    subtitle: 'Inventario familiar',
+    subtitle: 'Inventario en casa',
     description:
-      'Inventario del refrigerador: PWA, Supabase y Netlify Functions. Útil y rápida.',
+      'PWA familiar del refrigerador: Supabase + Netlify Functions. Simple y útil.',
     year: '2025',
     stack: ['JavaScript', 'Supabase', 'Netlify'],
     visibility: 'public',
@@ -94,9 +94,9 @@ export const projects: Project[] = [
   {
     id: 'ultron',
     title: 'Ultron',
-    subtitle: 'Ente local',
+    subtitle: 'Ente local 3D',
     description:
-      'Asistente local con conocimiento indexado, HUD 3D, MCP, voz y memoria. Cursor, CLI y HTTP.',
+      'Asistente local con HUD neuronal, índice de conocimiento, voz y varias puertas: Cursor, CLI, HTTP.',
     year: '2025–26',
     stack: ['Node', 'Three.js', 'MongoDB'],
     visibility: 'lab',
@@ -109,7 +109,7 @@ export const projects: Project[] = [
     title: 'Grupo Kasto',
     subtitle: 'Sitio corporativo',
     description:
-      'Página web del grupo: presencia de marca, secciones de negocio y diseño responsive.',
+      'Presencia web del grupo: marca, secciones de negocio y diseño responsive.',
     year: '2025',
     stack: ['HTML', 'CSS', 'JS'],
     visibility: 'client',
@@ -121,7 +121,7 @@ export const projects: Project[] = [
     title: 'Kasto Inventario',
     subtitle: 'Recepciones & control',
     description:
-      'Sistema Laravel de inventario: recepciones, procesamiento y control operativo.',
+      'Sistema Laravel de inventario: recepciones, errores de procesamiento y operación diaria.',
     year: '2025',
     stack: ['Laravel', 'PHP', 'MySQL'],
     visibility: 'client',
@@ -132,7 +132,7 @@ export const projects: Project[] = [
     id: 'flores-amarillas',
     title: 'Flores Amarillas',
     subtitle: 'Pieza visual',
-    description: 'Sitio creativo con CSS animado. Pequeña, emocional y pública en GitHub.',
+    description: 'Sitio creativo con CSS animado. Pequeño, emocional y público.',
     year: '2025',
     stack: ['CSS', 'HTML'],
     visibility: 'public',
@@ -144,7 +144,8 @@ export const projects: Project[] = [
     id: 'atrapa-sacos',
     title: 'Catcher',
     subtitle: 'Juego kiosco',
-    description: 'Juego kiosco con pygame-ce para activaciones en piso de venta.',
+    description:
+      'Juego para kiosco con pygame-ce: atrapa sacos en activaciones de piso.',
     year: '2025',
     stack: ['Python', 'pygame-ce'],
     visibility: 'lab',
@@ -155,7 +156,7 @@ export const projects: Project[] = [
     id: 'memo-kassto',
     title: 'Memorama',
     subtitle: 'Kiosco interactivo',
-    description: 'Memorama de marca para kiosco: experiencia lúdica en punto de venta.',
+    description: 'Memorama de marca para punto de venta con pygame-ce.',
     year: '2025',
     stack: ['Python', 'pygame-ce'],
     visibility: 'lab',
@@ -165,8 +166,8 @@ export const projects: Project[] = [
   {
     id: 'delivery-pizza',
     title: 'Delivery Pizza',
-    subtitle: 'Mutation kitchen',
-    description: 'Simulación en C#: cocina, mutaciones y delivery. Gameplay creativo.',
+    subtitle: 'Mutation in the kitchen',
+    description: 'Simulación creativa en C#: cocina, mutaciones y delivery.',
     year: '2025',
     stack: ['C#', 'Game'],
     visibility: 'lab',

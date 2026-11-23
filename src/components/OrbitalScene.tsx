@@ -1,94 +1,87 @@
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Float, Stars } from '@react-three/drei'
+import { Float, MeshDistortMaterial, Sparkles } from '@react-three/drei'
 import { useMemo, useRef } from 'react'
 import type { Group, Mesh } from 'three'
 import * as THREE from 'three'
 
-function Core() {
+function Blob() {
   const ref = useRef<Mesh>(null)
-  useFrame((state) => {
-    if (!ref.current) return
-    const t = state.clock.elapsedTime
-    ref.current.rotation.y = t * 0.28
-    ref.current.rotation.x = Math.sin(t * 0.35) * 0.25
-    ref.current.scale.setScalar(1 + Math.sin(t * 1.4) * 0.03)
-  })
-  return (
-    <mesh ref={ref}>
-      <icosahedronGeometry args={[1.2, 1]} />
-      <meshStandardMaterial
-        color="#d4ff4f"
-        emissive="#5c7a12"
-        emissiveIntensity={0.7}
-        metalness={0.4}
-        roughness={0.2}
-        wireframe
-      />
-    </mesh>
-  )
-}
-
-function OrbitRing({
-  radius,
-  speed,
-  tilt,
-  color,
-  size = 0.16,
-}: {
-  radius: number
-  speed: number
-  tilt: number
-  color: string
-  size?: number
-}) {
-  const group = useRef<Group>(null)
   useFrame((_, dt) => {
-    if (!group.current) return
-    group.current.rotation.z += dt * speed
+    if (!ref.current) return
+    ref.current.rotation.y += dt * 0.18
+    ref.current.rotation.z += dt * 0.06
   })
   return (
-    <group ref={group} rotation={[tilt, 0.35, 0.15]}>
-      <mesh rotation={[Math.PI / 2, 0, 0]}>
-        <torusGeometry args={[radius, 0.006, 12, 160]} />
-        <meshBasicMaterial color={color} transparent opacity={0.28} />
+    <Float speed={1.4} rotationIntensity={0.4} floatIntensity={1.1}>
+      <mesh ref={ref} scale={1.55}>
+        <icosahedronGeometry args={[1, 24]} />
+        <MeshDistortMaterial
+          color="#d4ff4f"
+          emissive="#3d4f10"
+          emissiveIntensity={0.45}
+          roughness={0.18}
+          metalness={0.55}
+          distort={0.38}
+          speed={2.2}
+        />
       </mesh>
-      <Float speed={2.2} floatIntensity={1.4}>
-        <mesh position={[radius, 0, 0]}>
-          <octahedronGeometry args={[size, 0]} />
-          <meshStandardMaterial
-            color={color}
-            emissive={color}
-            emissiveIntensity={0.85}
-            metalness={0.7}
-            roughness={0.15}
-          />
-        </mesh>
-      </Float>
-    </group>
+    </Float>
   )
 }
 
-function Nodes() {
-  const points = useMemo(() => {
-    const arr: THREE.Vector3[] = []
-    for (let i = 0; i < 64; i++) {
-      arr.push(
-        new THREE.Vector3(
-          (Math.random() - 0.5) * 9,
-          (Math.random() - 0.5) * 5.5,
-          (Math.random() - 0.5) * 7,
-        ),
+function GlassOrb({
+  position,
+  color,
+  scale = 0.35,
+}: {
+  position: [number, number, number]
+  color: string
+  scale?: number
+}) {
+  return (
+    <Float speed={2 + scale} floatIntensity={1.6} rotationIntensity={0.8}>
+      <mesh position={position} scale={scale}>
+        <sphereGeometry args={[1, 32, 32]} />
+        <meshPhysicalMaterial
+          color={color}
+          roughness={0.1}
+          metalness={0.2}
+          transmission={0.55}
+          thickness={0.6}
+          transparent
+          opacity={0.9}
+          emissive={color}
+          emissiveIntensity={0.25}
+        />
+      </mesh>
+    </Float>
+  )
+}
+
+function Ribbon() {
+  const ref = useRef<Group>(null)
+  const curve = useMemo(() => {
+    const pts = []
+    for (let i = 0; i < 40; i++) {
+      const t = (i / 39) * Math.PI * 2
+      pts.push(
+        new THREE.Vector3(Math.cos(t) * 2.6, Math.sin(t * 2) * 0.55, Math.sin(t) * 2.6),
       )
     }
-    return arr
+    return new THREE.CatmullRomCurve3(pts, true)
   }, [])
 
-  const geo = useMemo(() => new THREE.BufferGeometry().setFromPoints(points), [points])
+  useFrame((_, dt) => {
+    if (ref.current) ref.current.rotation.y += dt * 0.12
+  })
 
   return (
-    <points geometry={geo}>
-      <pointsMaterial size={0.03} color="#f5f5f0" transparent opacity={0.65} sizeAttenuation />
-    </points>
+    <group ref={ref}>
+      <mesh>
+        <tubeGeometry args={[curve, 160, 0.025, 8, true]} />
+        <meshBasicMaterial color="#7ee8ff" transparent opacity={0.55} />
+      </mesh>
+    </group>
   )
 }
 
@@ -96,22 +89,39 @@ function SceneContents({ mouse }: { mouse: { x: number; y: number } }) {
   const root = useRef<Group>(null)
   useFrame(() => {
     if (!root.current) return
-    root.current.rotation.y = THREE.MathUtils.lerp(root.current.rotation.y, mouse.x * 0.42, 0.05)
-    root.current.rotation.x = THREE.MathUtils.lerp(root.current.rotation.x, mouse.y * 0.22, 0.05)
+    root.current.rotation.y = THREE.MathUtils.lerp(
+      root.current.rotation.y,
+      mouse.x * 0.45,
+      0.06,
+    )
+    root.current.rotation.x = THREE.MathUtils.lerp(
+      root.current.rotation.x,
+      mouse.y * 0.22,
+      0.06,
+    )
   })
 
   return (
     <group ref={root}>
-      <ambientLight intensity={0.28} />
-      <pointLight position={[4, 3, 5]} intensity={55} color="#d4ff4f" distance={22} />
-      <pointLight position={[-5, -2, -3]} intensity={32} color="#7ee8ff" distance={20} />
-      <pointLight position={[0, 4, -2]} intensity={18} color="#ff9b6a" distance={16} />
-      <Stars radius={70} depth={45} count={2200} factor={3.2} saturation={0} fade speed={0.55} />
-      <Core />
-      <OrbitRing radius={2.05} speed={0.38} tilt={0.55} color="#d4ff4f" />
-      <OrbitRing radius={2.75} speed={-0.24} tilt={-0.85} color="#7ee8ff" size={0.13} />
-      <OrbitRing radius={3.45} speed={0.15} tilt={1.15} color="#ff9b6a" size={0.11} />
-      <Nodes />
+      <color attach="background" args={['#050505']} />
+      <fog attach="fog" args={['#050505', 8, 18]} />
+      <ambientLight intensity={0.25} />
+      <spotLight
+        position={[6, 8, 4]}
+        intensity={80}
+        angle={0.45}
+        penumbra={0.7}
+        color="#d4ff4f"
+      />
+      <pointLight position={[-4, -2, -3]} intensity={35} color="#7ee8ff" />
+      <pointLight position={[2, -3, 4]} intensity={20} color="#ff9b6a" />
+      <Blob />
+      <Ribbon />
+      <GlassOrb position={[2.4, 1.1, 0.4]} color="#d4ff4f" scale={0.28} />
+      <GlassOrb position={[-2.2, -0.6, 1]} color="#7ee8ff" scale={0.4} />
+      <GlassOrb position={[0.6, -1.6, 1.6]} color="#ff9b6a" scale={0.22} />
+      <GlassOrb position={[-1.4, 1.5, -1]} color="#fde047" scale={0.18} />
+      <Sparkles count={60} scale={9} size={2.5} speed={0.35} color="#f5f5f0" opacity={0.55} />
     </group>
   )
 }
@@ -119,9 +129,9 @@ function SceneContents({ mouse }: { mouse: { x: number; y: number } }) {
 export function OrbitalScene({ mouse }: { mouse: { x: number; y: number } }) {
   return (
     <Canvas
-      camera={{ position: [0, 0.2, 7], fov: 40 }}
+      camera={{ position: [0, 0.2, 6.4], fov: 40 }}
       dpr={[1, 1.6]}
-      gl={{ antialias: true, alpha: true }}
+      gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
       style={{ width: '100%', height: '100%' }}
     >
       <SceneContents mouse={mouse} />

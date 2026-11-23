@@ -1,12 +1,27 @@
 export function Marquee() {
-  const line =
-    'SITIOS · PWAs · 3D · MOTION · COMMERCE · EXPERIENCIAS · CÓDIGO CON CARÁCTER · '
+  const items = [
+    'PWAs',
+    'E-commerce',
+    'Sitios Angular',
+    'Experiencias 3D',
+    'Laravel',
+    'Next.js',
+    'Juegos kiosco',
+    'Ultron',
+    'Diseño vivo',
+  ]
+  const line = [...items, ...items]
+
   return (
-    <section className="marquee" aria-hidden>
+    <div className="marquee" aria-hidden>
       <div className="marquee-track">
-        <span>{line.repeat(4)}</span>
-        <span>{line.repeat(4)}</span>
+        {line.map((t, i) => (
+          <span key={`${t}-${i}`}>
+            {t}
+            <em>✦</em>
+          </span>
+        ))}
       </div>
-    </section>
+    </div>
   )
 }
