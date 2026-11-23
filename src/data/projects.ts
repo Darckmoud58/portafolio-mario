@@ -156,7 +156,7 @@ export const projects: Project[] = [
     id: 'memo-kassto',
     title: 'Memorama',
     subtitle: 'Kiosco interactivo',
-    description: 'Memorama de marca para punto de venta con pygame-ce.',
+    description: 'Memorama de marca para kiosco interactivo con pygame-ce.',
     year: '2025',
     stack: ['Python', 'pygame-ce'],
     visibility: 'lab',
