@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { featuredProjects, projects, type Project } from '../data/projects'
+import { go } from '../router'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -35,8 +36,20 @@ function StageCard({
       </ul>
       <div className="stage-links">
         {project.live && (
-          <a href={project.live} target="_blank" rel="noreferrer">
-            Live ↗
+          <a
+            href={project.live}
+            target={project.live.startsWith('/') ? undefined : '_blank'}
+            rel={project.live.startsWith('/') ? undefined : 'noreferrer'}
+            onClick={
+              project.live.startsWith('/')
+                ? (e) => {
+                    e.preventDefault()
+                    go(project.live!)
+                  }
+                : undefined
+            }
+          >
+            {project.live.startsWith('/') ? 'Entrar ↗' : 'Live ↗'}
           </a>
         )}
         {project.repo && (

@@ -6,8 +6,7 @@ export const site = {
   blurb:
     'Odio los sitios aburridos. Construyo PWAs, tiendas, sitios con carácter y piezas 3D que la gente quiere explorar — no solo listar.',
   location: 'México',
-  /** Actualizar con correo real antes de publicar. */
-  email: 'contacto@ejemplo.dev',
+  email: 'alberto_glez04@hotmail.com',
   github: 'https://github.com/Darckmoud58',
   socials: [{ label: 'GitHub', href: 'https://github.com/Darckmoud58' }],
   skills: [
