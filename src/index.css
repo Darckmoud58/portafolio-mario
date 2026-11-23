@@ -164,8 +164,8 @@ html.cursor-grow .cursor-ring {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(to top, rgba(5,5,5,0.95) 6%, transparent 42%),
-    linear-gradient(to right, rgba(5,5,5,0.72) 0%, transparent 58%);
+    linear-gradient(to top, rgba(5,5,5,0.85) 4%, transparent 50%),
+    linear-gradient(to right, rgba(5,5,5,0.4) 0%, transparent 65%);
 }
 
 .hero-copy { position: relative; z-index: 2; max-width: 16ch; }
