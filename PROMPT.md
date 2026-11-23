@@ -20,10 +20,21 @@ Mantener el nivel creativo actual:
 - Cursor custom, GSAP scroll reveals, filtros de proyectos.
 - **No** degradar a un template genérico (nada de Inter/Roboto, nada de purple-gradient SaaS, nada de cards en el hero).
 
+## Exclusiones (obligatorio)
+
+**NO añadir ni mencionar** en el portafolio público:
+
+- Meetpoint / portal clientes Meetpoint
+- Punto de Venta / PDV / P46 / P94
+- FOLAPSA
+- KARDEX / Oracle BIP / reportes Fusion de ese tipo
+
+Mario quiere este sitio como portafolio de **sitios web / PWAs / experiencias / juegos**, no del stack enterprise Oracle interno.
+
 ## Fuente de verdad (editar aquí)
 
 1. `src/data/projects.ts` — lista de proyectos (añadir / editar / featured).
-2. `src/data/site.ts` — nombre, bio, skills, stats, email, GitHub.
+2. `src/data/site.ts` — nombre, bio, skills, email, GitHub.
 3. Componentes en `src/components/` solo si el nuevo contenido lo exige (p. ej. timeline, case study).
 
 ## Qué debes descubrir y agregar
@@ -40,17 +51,15 @@ Explora el entorno del usuario y añade entradas honestas:
 
 Proyectos típicos a contrastar con el índice / carpetas (no inventes páginas APEX ni tablas):
 
-- `GK/meetpoint` — portal comercial APEX (recibos, sync vendedores).
-- `GK/Punto de Venta` — PDV APEX (P46, P94).
 - `GK/gkm-tienda` — tienda B2C Next.js.
-- `GK` raíz — BIP / KARDEX / reportes Fusion.
-- `folapsa-page` — Angular + NestJS + Mongo.
 - `Santuario` — sitio Angular.
 - `kasto-inventario` — Laravel.
 - `mi-nevera` — PWA Supabase.
 - `GK/GrupoKasto-page`, `Ohlala page`, juegos kiosco (`atrapa-sacos-kassto`, `memo-kassto`).
-- `jarvis` / Ultron — ente local, HUD 3D, MCP.
-- Cualquier otro sitio web o app que encuentres con README claro.
+- `jarvis` / Ultron — ente local, HUD 3D (sin filtrar secretos del workspace).
+- TraGo, pwacompleto, Flores-Amarillas y otros repos públicos de Darckmoud58.
+- Cualquier otro **sitio web / PWA / juego** con README claro.
+- Ignorar Meetpoint, PDV, FOLAPSA y KARDEX aunque existan en el disco.
 
 Si tienes MCP Jarvis (`search_knowledge` / `list_projects`), úsalo antes de afirmar hechos del workspace.
 

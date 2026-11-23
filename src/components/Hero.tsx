@@ -31,23 +31,32 @@ export function Hero() {
         </Suspense>
       </div>
       <div className="hero-veil" aria-hidden />
+
       <div className="hero-copy">
         <p className="eyebrow">{site.role}</p>
         <h1 className="hero-brand">
-          {site.name.split(' ')[0]}
-          <em> {site.name.split(' ').slice(1).join(' ')}</em>
+          <span className="hero-line-1">{site.name.split(' ')[0]}</span>
+          <span className="hero-line-2">
+            <em>{site.name.split(' ').slice(1).join(' ')}</em>
+          </span>
         </h1>
         <p className="hero-line">{site.tagline}</p>
         <div className="hero-actions">
           <a className="btn btn-primary" href="#work" data-cursor="grow">
-            Ver trabajo
+            Explorar trabajo
           </a>
           <a className="btn btn-ghost" href="#contact" data-cursor="grow">
-            Hablar
+            Contacto
           </a>
         </div>
       </div>
-      <div className="hero-scroll" aria-hidden>
+
+      <div className="hero-aside" aria-hidden>
+        <span>01</span>
+        <span>experiencia</span>
+      </div>
+
+      <div className="hero-scroll">
         <span>scroll</span>
         <i />
       </div>

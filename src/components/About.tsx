@@ -5,20 +5,20 @@ export function About() {
     <section className="about" id="about">
       <div className="about-grid">
         <div>
-          <p className="eyebrow">Sobre mí</p>
+          <p className="eyebrow">About</p>
           <h2>
-            Programador de sistemas <em>y</em> de experiencias
+            Odio los sitios <em>aburridos</em>
           </h2>
         </div>
         <div className="about-copy">
           <p>{site.blurb}</p>
           <p>
-            En Grupo Kasto y proyectos propios he llevado desde reportes BIP y portales APEX hasta
-            tiendas Next.js, sitios Angular y un ente local (Ultron) que indexa el conocimiento del
-            equipo. Me interesa que el producto se sienta vivo: tipografía con intención, movimiento
-            con propósito, cero relleno.
+            Este portafolio no es una lista de links: es una pequeña experiencia. Tipografía con
+            intención, movimiento con propósito, y proyectos que se sienten vivos en el navegador.
           </p>
-          <p className="about-loc">{site.location} · @{site.handle}</p>
+          <p className="about-loc">
+            {site.location} · @{site.handle}
+          </p>
         </div>
       </div>
     </section>

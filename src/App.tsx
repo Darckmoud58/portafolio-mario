@@ -1,6 +1,7 @@
 import { CustomCursor } from './components/CustomCursor'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
+import { Marquee } from './components/Marquee'
 import { Work } from './components/Work'
 import { Stack } from './components/Stack'
 import { About } from './components/About'
@@ -13,6 +14,7 @@ export default function App() {
       <Nav />
       <main>
         <Hero />
+        <Marquee />
         <Work />
         <Stack />
         <About />

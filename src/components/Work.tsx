@@ -1,117 +1,102 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { projects, type Project } from '../data/projects'
+import { projects } from '../data/projects'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const filters = [
-  { id: 'all', label: 'Todo' },
-  { id: 'web', label: 'Web' },
-  { id: 'pwa', label: 'PWA' },
-  { id: 'enterprise', label: 'Enterprise' },
-  { id: 'game', label: 'Juegos' },
-  { id: 'ai', label: 'AI' },
-] as const
-
-function ProjectPanel({ project, index }: { project: Project; index: number }) {
-  return (
-    <article
-      className="project"
-      style={{ ['--accent' as string]: project.accent }}
-      data-cursor="grow"
-    >
-      <div className="project-meta">
-        <span className="project-index">{String(index + 1).padStart(2, '0')}</span>
-        <span className="project-year">{project.year}</span>
-        <span className={`badge badge-${project.visibility}`}>{project.visibility}</span>
-      </div>
-      <h3 className="project-title">{project.title}</h3>
-      <p className="project-sub">{project.subtitle}</p>
-      <p className="project-desc">{project.description}</p>
-      <ul className="project-stack">
-        {project.stack.map((s) => (
-          <li key={s}>{s}</li>
-        ))}
-      </ul>
-      <div className="project-links">
-        {project.live && (
-          <a href={project.live} target="_blank" rel="noreferrer">
-            Live ↗
-          </a>
-        )}
-        {project.repo && (
-          <a href={project.repo} target="_blank" rel="noreferrer">
-            Repo ↗
-          </a>
-        )}
-        {!project.live && !project.repo && (
-          <span className="muted">Cliente / privado</span>
-        )}
-      </div>
-    </article>
-  )
-}
-
 export function Work() {
-  const [filter, setFilter] = useState<(typeof filters)[number]['id']>('all')
-  const rail = useRef<HTMLDivElement>(null)
-  const section = useRef<HTMLElement>(null)
-
-  const list =
-    filter === 'all' ? projects : projects.filter((p) => p.kind === filter)
+  const pin = useRef<HTMLElement>(null)
+  const track = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    const section = pin.current
+    const rail = track.current
+    if (!section || !rail) return
+
     const ctx = gsap.context(() => {
-      gsap.from('.work-head', {
-        y: 40,
+      const getScroll = () => Math.max(0, rail.scrollWidth - window.innerWidth)
+
+      gsap.to(rail, {
+        x: () => -getScroll(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top top',
+          end: () => `+=${getScroll()}`,
+          pin: true,
+          scrub: 0.65,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+        },
+      })
+
+      gsap.from('.work-intro > *', {
+        y: 50,
         opacity: 0,
+        stagger: 0.08,
         duration: 0.9,
         ease: 'power3.out',
-        scrollTrigger: { trigger: section.current, start: 'top 75%' },
-      })
-      gsap.from('.project', {
-        y: 60,
-        opacity: 0,
-        duration: 0.75,
-        stagger: 0.08,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: rail.current, start: 'top 80%' },
+        scrollTrigger: { trigger: section, start: 'top 80%' },
       })
     }, section)
-    return () => ctx.revert()
-  }, [filter])
+
+    const onResize = () => ScrollTrigger.refresh()
+    window.addEventListener('resize', onResize)
+    return () => {
+      window.removeEventListener('resize', onResize)
+      ctx.revert()
+    }
+  }, [])
 
   return (
-    <section className="work" id="work" ref={section}>
-      <div className="work-head">
-        <p className="eyebrow">Seleccionado</p>
+    <section className="work" id="work" ref={pin}>
+      <div className="work-intro">
+        <p className="eyebrow">Selected work</p>
         <h2>
-          Trabajo que <em>se siente</em>
+          Piezas que <em>se exploran</em>
         </h2>
-        <p className="lede">
-          Sitios, PWAs, sistemas Oracle y experimentos. Minimal. Interactivo. Un poco inesperado.
-        </p>
-        <div className="filters" role="tablist" aria-label="Filtrar proyectos">
-          {filters.map((f) => (
-            <button
-              key={f.id}
-              type="button"
-              role="tab"
-              aria-selected={filter === f.id}
-              className={filter === f.id ? 'is-active' : ''}
-              onClick={() => setFilter(f.id)}
+        <p className="lede">Arrastra el scroll — el trabajo viaja contigo.</p>
+      </div>
+
+      <div className="work-viewport">
+        <div className="work-track" ref={track}>
+          {projects.map((p, i) => (
+            <article
+              key={p.id}
+              className="slide"
+              style={{ ['--accent' as string]: p.accent }}
               data-cursor="grow"
             >
-              {f.label}
-            </button>
+              <div className="slide-index">{String(i + 1).padStart(2, '0')}</div>
+              <div className="slide-glow" aria-hidden />
+              <p className="slide-year">
+                {p.year} · {p.visibility}
+              </p>
+              <h3 className="slide-title">{p.title}</h3>
+              <p className="slide-sub">{p.subtitle}</p>
+              <p className="slide-desc">{p.description}</p>
+              <ul className="slide-stack">
+                {p.stack.map((s) => (
+                  <li key={s}>{s}</li>
+                ))}
+              </ul>
+              <div className="slide-links">
+                {p.live && (
+                  <a href={p.live} target="_blank" rel="noreferrer">
+                    Abrir live
+                  </a>
+                )}
+                {p.repo && (
+                  <a href={p.repo} target="_blank" rel="noreferrer">
+                    Código
+                  </a>
+                )}
+                {!p.live && !p.repo && <span>Proyecto privado</span>}
+              </div>
+            </article>
           ))}
         </div>
-      </div>
-      <div className="work-rail" ref={rail}>
-        {list.map((p, i) => (
-          <ProjectPanel key={p.id} project={p} index={i} />
-        ))}
       </div>
     </section>
   )

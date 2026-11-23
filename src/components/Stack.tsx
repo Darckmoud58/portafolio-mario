@@ -11,11 +11,11 @@ export function Stack() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('.chip', {
-        scale: 0.85,
+        y: 24,
         opacity: 0,
-        duration: 0.5,
-        stagger: 0.04,
-        ease: 'back.out(1.6)',
+        duration: 0.45,
+        stagger: 0.035,
+        ease: 'power2.out',
         scrollTrigger: { trigger: ref.current, start: 'top 75%' },
       })
     }, ref)
@@ -24,9 +24,9 @@ export function Stack() {
 
   return (
     <section className="stack" id="stack" ref={ref}>
-      <p className="eyebrow">Herramientas</p>
+      <p className="eyebrow">Toolkit</p>
       <h2>
-        Stack con el que <em>construyo</em>
+        Con qué <em>fabrico</em>
       </h2>
       <ul className="chip-cloud">
         {site.skills.map((s) => (
@@ -35,14 +35,6 @@ export function Stack() {
           </li>
         ))}
       </ul>
-      <div className="stats">
-        {site.stats.map((st) => (
-          <div key={st.label} className="stat">
-            <strong>{st.value}</strong>
-            <span>{st.label}</span>
-          </div>
-        ))}
-      </div>
     </section>
   )
 }
